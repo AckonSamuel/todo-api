@@ -1,0 +1,209 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/user:
+    get:
+      summary: ''
+      operationId: getApiUser
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/todos:
+    get:
+      summary: 'Display a listing of the resource.'
+      operationId: displayAListingOfTheResource
+      description: ''
+      parameters:
+        -
+          in: query
+          name: status
+          description: 'Filter by status.'
+          example: pending
+          required: false
+          schema:
+            type: string
+            description: 'Filter by status.'
+            example: pending
+            nullable: false
+        -
+          in: query
+          name: search
+          description: 'Search by title or details.'
+          example: null
+          required: false
+          schema:
+            type: string
+            description: 'Search by title or details.'
+            example: null
+            nullable: false
+        -
+          in: query
+          name: sort_by
+          description: 'Sort by field.'
+          example: title
+          required: false
+          schema:
+            type: string
+            description: 'Sort by field.'
+            example: title
+            nullable: false
+        -
+          in: query
+          name: sort_direction
+          description: 'Sort direction.'
+          example: asc
+          required: false
+          schema:
+            type: string
+            description: 'Sort direction.'
+            example: asc
+            nullable: false
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data: []
+                properties:
+                  data:
+                    type: array
+                    example: []
+      tags:
+        - Todos
+      security: []
+    post:
+      summary: 'Store a newly created resource in storage.'
+      operationId: storeANewlyCreatedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Todos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 'The title of the todo.'
+                  example: 'Buy groceries'
+                  nullable: false
+                details:
+                  type: string
+                  description: 'The details of the todo.'
+                  example: 'Milk, Bread, Butter'
+                  nullable: false
+                status:
+                  type: string
+                  description: 'The status of the todo.'
+                  example: pending
+                  nullable: false
+              required:
+                - title
+                - status
+      security: []
+  '/api/v1/todos/{id}':
+    get:
+      summary: 'Display the specified resource.'
+      operationId: displayTheSpecifiedResource
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'No query results for model [App\Models\Todo] 1'
+                properties:
+                  message:
+                    type: string
+                    example: 'No query results for model [App\Models\Todo] 1'
+      tags:
+        - Todos
+      security: []
+    put:
+      summary: 'Update the specified resource in storage.'
+      operationId: updateTheSpecifiedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Todos
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 'The title of the todo.'
+                  example: 'Updated title'
+                  nullable: false
+                details:
+                  type: string
+                  description: 'The details of the todo.'
+                  example: 'Updated details'
+                  nullable: false
+                status:
+                  type: string
+                  description: 'The status of the todo.'
+                  example: completed
+                  nullable: false
+      security: []
+    delete:
+      summary: 'Remove the specified resource from storage.'
+      operationId: removeTheSpecifiedResourceFromStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Todos
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the todo.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: Endpoints
+    description: ''
+  -
+    name: Todos
+    description: "\nAPIs for managing todos"
