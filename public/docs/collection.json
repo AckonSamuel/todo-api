@@ -5,70 +5,16 @@
             "key": "baseUrl",
             "type": "string",
             "name": "string",
-            "value": "http:\/\/localhost"
+            "value": "https:\/\/pengion-todo-a4f1355a880e.herokuapp.com\/"
         }
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "503c0561-cfd5-44a6-8443-03435f4393d7",
+        "_postman_id": "657e43c4-33ff-4843-8d9e-e6f5031252e8",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
     "item": [
-        {
-            "name": "Endpoints",
-            "description": "",
-            "item": [
-                {
-                    "name": "GET api\/user",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/user",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/user"
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
-                            "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
-                            "name": ""
-                        }
-                    ]
-                }
-            ]
-        },
         {
             "name": "Todos",
             "description": "\nAPIs for managing todos",
@@ -141,13 +87,13 @@
                                 }
                             ],
                             "code": 200,
-                            "body": "{\"data\":[]}",
+                            "body": "{\"data\":[{ \"id\": 13, \"title\": \"Officia maiores fugiat quasi eligendi at.\", \"details\": \"Tempore velit qui magnam corrupti officiis occaecati. Quae dignissimos dolorem adipisci ab hic. Qui est maxime aut ut voluptatem autem aut. Minus laboriosam rem ducimus vero vero provident odio.\", \"status\": \"completed\" }, { \"id\": 14, \"title\": \"Nostrum et ea et dolore et in rerum.\", \"details\": \"Dolor consequatur dolore hic dolorem aut veniam. Ex amet voluptatem ipsa deleniti ut occaecati tempora recusandae. Consectetur beatae corrupti voluptates vel.\", \"status\": \"in progress\" },]}",
                             "name": ""
                         }
                     ]
                 },
                 {
-                    "name": "Store a newly created resource in storage.",
+                    "name": "Create a new todo item",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -175,7 +121,27 @@
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 201,
+                            "body": "{ \"data\": { \"id\":63, \"title\":\"gym\", \"details\":\"up down, up down\", \"status\":\"completed\" } }",
+                            "name": ""
+                        }
+                    ]
                 },
                 {
                     "name": "Display the specified resource.",
@@ -189,7 +155,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "63",
                                     "description": "The ID of the todo."
                                 }
                             ]
@@ -227,14 +193,14 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 404,
-                            "body": "{\n    \"message\": \"No query results for model [App\\\\Models\\\\Todo] 1\"\n}",
+                            "code": 200,
+                            "body": "{ \"data\": { \"id\":63, \"title\":\"gym\", \"details\":\"up down, up down\", \"status\":\"completed\" } }",
                             "name": ""
                         }
                     ]
                 },
                 {
-                    "name": "Update the specified resource in storage.",
+                    "name": "Update the todo item",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -245,7 +211,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "63",
                                     "description": "The ID of the todo."
                                 }
                             ]
@@ -270,10 +236,30 @@
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "{ \"data\": { \"id\":63, \"title\":\"Updated title\", \"details\":\"Updated details\", \"status\":\"completed\" } }",
+                            "name": ""
+                        }
+                    ]
                 },
                 {
-                    "name": "Remove the specified resource from storage.",
+                    "name": "Remove the specified todo item.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -284,7 +270,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "1",
+                                    "value": "63",
                                     "description": "The ID of the todo."
                                 }
                             ]

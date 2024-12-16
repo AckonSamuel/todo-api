@@ -74,7 +74,18 @@ endpoints:
     responses:
       -
         status: 200
-        content: '{"data":[]}'
+        content: '{"data":[{
+            "id": 13,
+            "title": "Officia maiores fugiat quasi eligendi at.",
+            "details": "Tempore velit qui magnam corrupti officiis occaecati. Quae dignissimos dolorem adipisci ab hic. Qui est maxime aut ut voluptatem autem aut. Minus laboriosam rem ducimus vero vero provident odio.",
+            "status": "completed"
+        },
+        {
+            "id": 14,
+            "title": "Nostrum et ea et dolore et in rerum.",
+            "details": "Dolor consequatur dolore hic dolorem aut veniam. Ex amet voluptatem ipsa deleniti ut occaecati tempora recusandae. Consectetur beatae corrupti voluptates vel.",
+            "status": "in progress"
+        },]}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -98,7 +109,7 @@ endpoints:
         APIs for managing todos
       subgroup: ''
       subgroupDescription: ''
-      title: 'Store a newly created resource in storage.'
+      title: 'Create a new todo item'
       description: ''
       authenticated: false
       custom: []
@@ -145,7 +156,24 @@ endpoints:
       details: 'Milk, Bread, Butter'
       status: pending
     fileParameters: []
-    responses: []
+    responses:
+      -
+        status: 201
+        content: '{
+        "data":
+          {
+            "id":63,
+            "title":"gym",
+            "details":"up down, up down",
+            "status":"completed"
+          }
+        }'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
     responseFields: []
     auth: []
     controller: null
@@ -175,14 +203,14 @@ endpoints:
         name: id
         description: 'The ID of the todo.'
         required: true
-        example: 1
+        example: 63
         type: integer
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         custom: []
     cleanUrlParameters:
-      id: 1
+      id: 63
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -190,11 +218,16 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 404
-        content: |-
+        status: 200
+        content: '{
+        "data":
           {
-              "message": "No query results for model [App\\Models\\Todo] 1"
+            "id":63,
+            "title":"gym",
+            "details":"up down, up down",
+            "status":"completed"
           }
+        }'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -218,7 +251,7 @@ endpoints:
         APIs for managing todos
       subgroup: ''
       subgroupDescription: ''
-      title: 'Update the specified resource in storage.'
+      title: 'Update the todo item'
       description: ''
       authenticated: false
       custom: []
@@ -230,14 +263,14 @@ endpoints:
         name: id
         description: 'The ID of the todo.'
         required: true
-        example: 1
+        example: 63
         type: integer
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         custom: []
     cleanUrlParameters:
-      id: 1
+      id: 63
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -276,7 +309,24 @@ endpoints:
       details: 'Updated details'
       status: completed
     fileParameters: []
-    responses: []
+    responses:
+          -
+            status: 200
+            content: '{
+            "data":
+              {
+                "id":63,
+                "title":"Updated title",
+                "details":"Updated details",
+                "status":"completed"
+              }
+            }'
+            headers:
+              cache-control: 'no-cache, private'
+              content-type: application/json
+              access-control-allow-origin: '*'
+            description: null
+            custom: []
     responseFields: []
     auth: []
     controller: null
@@ -294,7 +344,7 @@ endpoints:
         APIs for managing todos
       subgroup: ''
       subgroupDescription: ''
-      title: 'Remove the specified resource from storage.'
+      title: 'Remove the specified todo item.'
       description: ''
       authenticated: false
       custom: []
@@ -306,14 +356,14 @@ endpoints:
         name: id
         description: 'The ID of the todo.'
         required: true
-        example: 1
+        example: 63
         type: integer
         enumValues: []
         exampleWasSpecified: true
         nullable: false
         custom: []
     cleanUrlParameters:
-      id: 1
+      id: 63
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []

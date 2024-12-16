@@ -8,8 +8,8 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="./css/theme-default.style.css" media="screen">
-    <link rel="stylesheet" href="./css/theme-default.print.css" media="print">
+    <link rel="stylesheet" href="../docs/css/theme-default.style.css" media="screen">
+    <link rel="stylesheet" href="../docs/css/theme-default.print.css" media="print">
 
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
 
@@ -26,13 +26,13 @@
             </style>
 
     <script>
-        var tryItOutBaseUrl = "http://localhost";
+        var tryItOutBaseUrl = "https://pengion-todo-a4f1355a880e.herokuapp.com/";
         var useCsrf = Boolean();
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
-    <script src="./js/tryitout-4.38.0.js"></script>
+    <script src="../docs/js/tryitout-4.38.0.js"></script>
 
-    <script src="./js/theme-default-4.38.0.js"></script>
+    <script src="../docs/js/theme-default-4.38.0.js"></script>
 
 </head>
 
@@ -41,7 +41,7 @@
 <a href="#" id="nav-button">
     <span>
         MENU
-        <img src="./images/navbar.png" alt="navbar-image"/>
+        <img src="../docs/images/navbar.png" alt="navbar-image"/>
     </span>
 </a>
 <div class="tocify-wrapper">
@@ -66,16 +66,6 @@
                     <a href="#authenticating-requests">Authenticating requests</a>
                 </li>
                             </ul>
-                    <ul id="tocify-header-endpoints" class="tocify-header">
-                <li class="tocify-item level-1" data-unique="endpoints">
-                    <a href="#endpoints">Endpoints</a>
-                </li>
-                                    <ul id="tocify-subheader-endpoints" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="endpoints-GETapi-user">
-                                <a href="#endpoints-GETapi-user">GET api/user</a>
-                            </li>
-                                                                        </ul>
-                            </ul>
                     <ul id="tocify-header-todos" class="tocify-header">
                 <li class="tocify-item level-1" data-unique="todos">
                     <a href="#todos">Todos</a>
@@ -85,29 +75,29 @@
                                 <a href="#todos-GETapi-v1-todos">Display a listing of the resource.</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="todos-POSTapi-v1-todos">
-                                <a href="#todos-POSTapi-v1-todos">Store a newly created resource in storage.</a>
+                                <a href="#todos-POSTapi-v1-todos">Create a new todo item</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="todos-GETapi-v1-todos--id-">
                                 <a href="#todos-GETapi-v1-todos--id-">Display the specified resource.</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="todos-PUTapi-v1-todos--id-">
-                                <a href="#todos-PUTapi-v1-todos--id-">Update the specified resource in storage.</a>
+                                <a href="#todos-PUTapi-v1-todos--id-">Update the todo item</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="todos-DELETEapi-v1-todos--id-">
-                                <a href="#todos-DELETEapi-v1-todos--id-">Remove the specified resource from storage.</a>
+                                <a href="#todos-DELETEapi-v1-todos--id-">Remove the specified todo item.</a>
                             </li>
                                                                         </ul>
                             </ul>
             </div>
 
     <ul class="toc-footer" id="toc-footer">
-                    <li style="padding-bottom: 5px;"><a href="./collection.json">View Postman collection</a></li>
-                            <li style="padding-bottom: 5px;"><a href="./openapi.yaml">View OpenAPI spec</a></li>
+                    <li style="padding-bottom: 5px;"><a href="../docs/collection.json">View Postman collection</a></li>
+                            <li style="padding-bottom: 5px;"><a href="../docs/openapi.yaml">View OpenAPI spec</a></li>
                 <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: December 11, 2024</li>
+        <li>Last updated: December 16, 2024</li>
     </ul>
 </div>
 
@@ -125,135 +115,7 @@ You can switch the language used with the tabs at the top right (or from the nav
         <h1 id="authenticating-requests">Authenticating requests</h1>
 <p>This API is not authenticated.</p>
 
-        <h1 id="endpoints">Endpoints</h1>
-
-    
-
-                                <h2 id="endpoints-GETapi-user">GET api/user</h2>
-
-<p>
-</p>
-
-
-
-<span id="example-requests-GETapi-user">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/user" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/user"
-);
-
-const headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre></div>
-
-</span>
-
-<span id="example-responses-GETapi-user">
-            <blockquote>
-            <p>Example response (401):</p>
-        </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;Unauthenticated.&quot;
-}</code>
- </pre>
-    </span>
-<span id="execution-results-GETapi-user" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-GETapi-user"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-user"
-      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
-</span>
-<span id="execution-error-GETapi-user" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-user">
-
-Tip: Check that you&#039;re properly connected to the network.
-If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
-You can check the Dev Tools console for debugging information.</code></pre>
-</span>
-<form id="form-GETapi-user" data-method="GET"
-      data-path="api/user"
-      data-authed="0"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-user', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-user"
-                    onclick="tryItOut('GETapi-user');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-user"
-                    onclick="cancelTryOut('GETapi-user');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-user"
-                    data-initial-text="Send Request 💥"
-                    data-loading-text="⏱ Sending..."
-                    hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-green">GET</small>
-            <b><code>api/user</code></b>
-        </p>
-                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="GETapi-user"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="GETapi-user"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                        </form>
-
-                <h1 id="todos">Todos</h1>
+        <h1 id="todos">Todos</h1>
 
     <p>APIs for managing todos</p>
 
@@ -270,14 +132,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/todos?status=pending&amp;sort_by=title&amp;sort_direction=asc" \
+    --get "https://pengion-todo-a4f1355a880e.herokuapp.com/api/v1/todos?status=pending&amp;sort_by=title&amp;sort_direction=asc" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/todos"
+    "https://pengion-todo-a4f1355a880e.herokuapp.com/api/v1/todos"
 );
 
 const params = {
@@ -313,9 +175,7 @@ content-type: application/json
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
-<code class="language-json" style="max-height: 300px;">{
-    &quot;data&quot;: []
-}</code>
+<code class="language-json" style="max-height: 300px;">{&quot;data&quot;:[{ &quot;id&quot;: 13, &quot;title&quot;: &quot;Officia maiores fugiat quasi eligendi at.&quot;, &quot;details&quot;: &quot;Tempore velit qui magnam corrupti officiis occaecati. Quae dignissimos dolorem adipisci ab hic. Qui est maxime aut ut voluptatem autem aut. Minus laboriosam rem ducimus vero vero provident odio.&quot;, &quot;status&quot;: &quot;completed&quot; }, { &quot;id&quot;: 14, &quot;title&quot;: &quot;Nostrum et ea et dolore et in rerum.&quot;, &quot;details&quot;: &quot;Dolor consequatur dolore hic dolorem aut veniam. Ex amet voluptatem ipsa deleniti ut occaecati tempora recusandae. Consectetur beatae corrupti voluptates vel.&quot;, &quot;status&quot;: &quot;in progress&quot; },]}</code>
  </pre>
     </span>
 <span id="execution-results-GETapi-v1-todos" hidden>
@@ -434,7 +294,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                 </form>
 
-                    <h2 id="todos-POSTapi-v1-todos">Store a newly created resource in storage.</h2>
+                    <h2 id="todos-POSTapi-v1-todos">Create a new todo item</h2>
 
 <p>
 </p>
@@ -447,7 +307,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/v1/todos" \
+    "https://pengion-todo-a4f1355a880e.herokuapp.com/api/v1/todos" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -460,7 +320,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/todos"
+    "https://pengion-todo-a4f1355a880e.herokuapp.com/api/v1/todos"
 );
 
 const headers = {
@@ -483,7 +343,28 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-v1-todos">
-</span>
+            <blockquote>
+            <p>Example response (201):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 63,
+        &quot;title&quot;: &quot;gym&quot;,
+        &quot;details&quot;: &quot;up down, up down&quot;,
+        &quot;status&quot;: &quot;completed&quot;
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-v1-todos" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-todos"></span>:
@@ -602,14 +483,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/todos/1" \
+    --get "https://pengion-todo-a4f1355a880e.herokuapp.com/api/v1/todos/63" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/todos/1"
+    "https://pengion-todo-a4f1355a880e.herokuapp.com/api/v1/todos/63"
 );
 
 const headers = {
@@ -626,7 +507,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-todos--id-">
             <blockquote>
-            <p>Example response (404):</p>
+            <p>Example response (200):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -638,7 +519,12 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;No query results for model [App\\Models\\Todo] 1&quot;
+    &quot;data&quot;: {
+        &quot;id&quot;: 63,
+        &quot;title&quot;: &quot;gym&quot;,
+        &quot;details&quot;: &quot;up down, up down&quot;,
+        &quot;status&quot;: &quot;completed&quot;
+    }
 }</code>
  </pre>
     </span>
@@ -718,14 +604,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="GETapi-v1-todos--id-"
-               value="1"
+               value="63"
                data-component="url">
     <br>
-<p>The ID of the todo. Example: <code>1</code></p>
+<p>The ID of the todo. Example: <code>63</code></p>
             </div>
                     </form>
 
-                    <h2 id="todos-PUTapi-v1-todos--id-">Update the specified resource in storage.</h2>
+                    <h2 id="todos-PUTapi-v1-todos--id-">Update the todo item</h2>
 
 <p>
 </p>
@@ -738,7 +624,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/v1/todos/1" \
+    "https://pengion-todo-a4f1355a880e.herokuapp.com/api/v1/todos/63" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -751,7 +637,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/todos/1"
+    "https://pengion-todo-a4f1355a880e.herokuapp.com/api/v1/todos/63"
 );
 
 const headers = {
@@ -774,7 +660,28 @@ fetch(url, {
 </span>
 
 <span id="example-responses-PUTapi-v1-todos--id-">
-</span>
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 63,
+        &quot;title&quot;: &quot;Updated title&quot;,
+        &quot;details&quot;: &quot;Updated details&quot;,
+        &quot;status&quot;: &quot;completed&quot;
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-PUTapi-v1-todos--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-PUTapi-v1-todos--id-"></span>:
@@ -851,10 +758,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="PUTapi-v1-todos--id-"
-               value="1"
+               value="63"
                data-component="url">
     <br>
-<p>The ID of the todo. Example: <code>1</code></p>
+<p>The ID of the todo. Example: <code>63</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -892,7 +799,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
         </div>
         </form>
 
-                    <h2 id="todos-DELETEapi-v1-todos--id-">Remove the specified resource from storage.</h2>
+                    <h2 id="todos-DELETEapi-v1-todos--id-">Remove the specified todo item.</h2>
 
 <p>
 </p>
@@ -905,14 +812,14 @@ You can check the Dev Tools console for debugging information.</code></pre>
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/v1/todos/1" \
+    "https://pengion-todo-a4f1355a880e.herokuapp.com/api/v1/todos/63" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/todos/1"
+    "https://pengion-todo-a4f1355a880e.herokuapp.com/api/v1/todos/63"
 );
 
 const headers = {
@@ -1005,10 +912,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="id"                data-endpoint="DELETEapi-v1-todos--id-"
-               value="1"
+               value="63"
                data-component="url">
     <br>
-<p>The ID of the todo. Example: <code>1</code></p>
+<p>The ID of the todo. Example: <code>63</code></p>
             </div>
                     </form>
 

@@ -5,30 +5,8 @@ info:
   version: 1.0.0
 servers:
   -
-    url: 'http://localhost'
+    url: 'https://pengion-todo-a4f1355a880e.herokuapp.com'
 paths:
-  /api/user:
-    get:
-      summary: ''
-      operationId: getApiUser
-      description: ''
-      parameters: []
-      responses:
-        401:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: Unauthenticated.
-                properties:
-                  message:
-                    type: string
-                    example: Unauthenticated.
-      tags:
-        - Endpoints
-      security: []
   /api/v1/todos:
     get:
       summary: 'Display a listing of the resource.'
@@ -83,24 +61,47 @@ paths:
         200:
           description: ''
           content:
-            application/json:
+            text/plain:
               schema:
-                type: object
-                example:
-                  data: []
-                properties:
-                  data:
-                    type: array
-                    example: []
+                type: string
+                example: '{"data":[{ "id": 13, "title": "Officia maiores fugiat quasi eligendi at.", "details": "Tempore velit qui magnam corrupti officiis occaecati. Quae dignissimos dolorem adipisci ab hic. Qui est maxime aut ut voluptatem autem aut. Minus laboriosam rem ducimus vero vero provident odio.", "status": "completed" }, { "id": 14, "title": "Nostrum et ea et dolore et in rerum.", "details": "Dolor consequatur dolore hic dolorem aut veniam. Ex amet voluptatem ipsa deleniti ut occaecati tempora recusandae. Consectetur beatae corrupti voluptates vel.", "status": "in progress" },]}'
       tags:
         - Todos
       security: []
     post:
-      summary: 'Store a newly created resource in storage.'
-      operationId: storeANewlyCreatedResourceInStorage
+      summary: 'Create a new todo item'
+      operationId: createANewTodoItem
       description: ''
       parameters: []
-      responses: {  }
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 63
+                    title: gym
+                    details: 'up down, up down'
+                    status: completed
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 63
+                      title:
+                        type: string
+                        example: gym
+                      details:
+                        type: string
+                        example: 'up down, up down'
+                      status:
+                        type: string
+                        example: completed
       tags:
         - Todos
       requestBody:
@@ -136,27 +137,71 @@ paths:
       description: ''
       parameters: []
       responses:
-        404:
+        200:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: 'No query results for model [App\Models\Todo] 1'
+                  data:
+                    id: 63
+                    title: gym
+                    details: 'up down, up down'
+                    status: completed
                 properties:
-                  message:
-                    type: string
-                    example: 'No query results for model [App\Models\Todo] 1'
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 63
+                      title:
+                        type: string
+                        example: gym
+                      details:
+                        type: string
+                        example: 'up down, up down'
+                      status:
+                        type: string
+                        example: completed
       tags:
         - Todos
       security: []
     put:
-      summary: 'Update the specified resource in storage.'
-      operationId: updateTheSpecifiedResourceInStorage
+      summary: 'Update the todo item'
+      operationId: updateTheTodoItem
       description: ''
       parameters: []
-      responses: {  }
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 63
+                    title: 'Updated title'
+                    details: 'Updated details'
+                    status: completed
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 63
+                      title:
+                        type: string
+                        example: 'Updated title'
+                      details:
+                        type: string
+                        example: 'Updated details'
+                      status:
+                        type: string
+                        example: completed
       tags:
         - Todos
       requestBody:
@@ -183,8 +228,8 @@ paths:
                   nullable: false
       security: []
     delete:
-      summary: 'Remove the specified resource from storage.'
-      operationId: removeTheSpecifiedResourceFromStorage
+      summary: 'Remove the specified todo item.'
+      operationId: removeTheSpecifiedTodoItem
       description: ''
       parameters: []
       responses: {  }
@@ -196,14 +241,11 @@ paths:
         in: path
         name: id
         description: 'The ID of the todo.'
-        example: 1
+        example: 63
         required: true
         schema:
           type: integer
 tags:
-  -
-    name: Endpoints
-    description: ''
   -
     name: Todos
     description: "\nAPIs for managing todos"

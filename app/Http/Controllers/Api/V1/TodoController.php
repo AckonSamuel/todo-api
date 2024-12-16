@@ -1,13 +1,12 @@
 <?php
-
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Todo;
 use App\Http\Resources\TodoResource;
-use App\Http\Requests\StoreTodoRequest;
-use App\Http\Requests\UpdateTodoRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Throwable;
 
 /**
  * @group Todos
@@ -18,96 +17,175 @@ class TodoController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @queryParam status Filter by status. Example: pending
-     * @queryParam search Search by title or details. No-example
-     * @queryParam sort_by Sort by field. Example: title
-     * @queryParam sort_direction Sort direction. Example: asc
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        $query = Todo::query();
+        try {
+            $query = Todo::query();
 
-        // Filter by status
-        if ($request->has('status')) {
-            $query->where('status', $request->status);
+            // Filter by status
+            if ($request->has('status')) {
+                $query->where('status', $request->status);
+            }
+
+            // Search by title and details
+            if ($request->has('search')) {
+                $query->where(function ($q) use ($request) {
+                    $q->where('title', 'like', '%' . $request->search . '%')
+                        ->orWhere('details', 'like', '%' . $request->search . '%');
+                });
+            }
+
+            // Sort
+            if ($request->has('sort_by')) {
+                $query->orderBy($request->sort_by, $request->sort_direction ?? 'asc');
+            }
+
+            return TodoResource::collection($query->get());
+        } catch (Throwable $e) {
+            return response()->json([
+                'error' => 'Failed to fetch todos.',
+                'message' => $e->getMessage(),
+            ], 500);
         }
-
-        // Search by title and details
-        if ($request->has('search')) {
-            $query->where(function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->search . '%')
-                    ->orWhere('details', 'like', '%' . $request->search . '%');
-            });
-        }
-
-        // Sort
-        if ($request->has('sort_by')) {
-            $query->orderBy($request->sort_by, $request->sort_direction ?? 'asc');
-        }
-
-        return TodoResource::collection($query->get());
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @bodyParam title string required The title of the todo. Example: Buy groceries
-     * @bodyParam details string The details of the todo. Example: Milk, Bread, Butter
-     * @bodyParam status string required The status of the todo. Example: pending
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreTodoRequest $request)
+    public function store(Request $request)
     {
-        $todo = Todo::create($request->validated());
-        return new TodoResource($todo);
+        try {
+            // Define the allowed parameters for this request
+            $allowedParams = ['title', 'details', 'status'];
+
+            // Get all the input from the request
+            $requestParams = array_keys($request->all());
+
+            // Check if there are any unwanted parameters in the request
+            $unexpectedParams = array_diff($requestParams, $allowedParams);
+
+            if (!empty($unexpectedParams)) {
+                return response()->json([
+                    'error' => 'Unwanted parameters found: ' . implode(', ', $unexpectedParams),
+                ], 400); // Bad Request
+            }
+
+            // Check if the request body is empty
+            if (empty($request->all())) {
+                return response()->json([
+                    'error' => 'Request body cannot be empty.',
+                ], 400); // Bad Request
+            }
+
+            // Validate required fields in the body
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'details' => 'required|string',
+                'status' => 'required|in:completed,in progress,not started',
+            ]);
+
+            // Create the Todo item
+            $todo = Todo::create($request->only(['title', 'details', 'status']));
+
+            return new TodoResource($todo);
+        } catch (Throwable $e) {
+            return response()->json([
+                'error' => 'Failed to create the todo.',
+                'message' => $e->getMessage(),
+            ], 500); // Internal Server Error
+        }
     }
 
     /**
      * Display the specified resource.
-     *
-     * @urlParam id integer required The ID of the todo. Example: 1
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        $todo = Todo::findOrFail($id);
-        return new TodoResource($todo);
+        try {
+            $todo = Todo::findOrFail($id);
+            return new TodoResource($todo);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'error' => 'Todo not found.',
+                'message' => $e->getMessage(),
+            ], 404);
+        } catch (Throwable $e) {
+            return response()->json([
+                'error' => 'Failed to fetch the todo.',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @urlParam id integer required The ID of the todo. Example: 1
-     * @bodyParam title string The title of the todo. Example: Updated title
-     * @bodyParam details string The details of the todo. Example: Updated details
-     * @bodyParam status string The status of the todo. Example: completed
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdateTodoRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $todo = Todo::findOrFail($id);
-        $todo->update($request->validated());
-        return new TodoResource($todo);
+        try {
+            $todo = Todo::findOrFail($id);
+
+            // Define the allowed parameters for this request
+            $allowedParams = ['title', 'details', 'status'];
+
+            // Get all the input from the request
+            $requestParams = array_keys($request->all());
+
+            // Check if there are any unwanted parameters in the request
+            $unexpectedParams = array_diff($requestParams, $allowedParams);
+
+            if (!empty($unexpectedParams)) {
+                return response()->json([
+                    'error' => 'Unwanted parameters found: ' . implode(', ', $unexpectedParams),
+                ], 400); // Bad Request
+            }
+
+            // Validate request data, only if provided
+            $request->validate([
+                'title' => 'sometimes|string|max:255',
+                'details' => 'sometimes|string',
+                'status' => 'sometimes|in:completed,in progress,not started',
+            ]);
+
+            // Update the Todo item
+            $todo->update($request->only(['title', 'details', 'status']));
+
+            return new TodoResource($todo);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'error' => 'Todo not found.',
+                'message' => $e->getMessage(),
+            ], 404);
+        } catch (Throwable $e) {
+            return response()->json([
+                'error' => 'Failed to update the todo.',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @urlParam id integer required The ID of the todo. Example: 1
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        $todo = Todo::findOrFail($id);
-        $todo->delete();
-        return response()->noContent();
+        try {
+            $todo = Todo::findOrFail($id);
+            $todo->delete();
+            return response()->json([
+                'message' => 'Todo deleted successfully.',
+            ], 204);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'error' => 'Todo not found.',
+                'message' => $e->getMessage(),
+            ], 404);
+        } catch (Throwable $e) {
+            return response()->json([
+                'error' => 'Failed to delete the todo.',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 }
-
