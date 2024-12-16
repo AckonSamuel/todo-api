@@ -23,17 +23,17 @@ class TodoControllerTest extends TestCase
     }
 
     /** @test */
-    // public function it_can_filter_todos_by_status()
-    // {
-    //     Todo::factory()->create(['status' => 'pending']);
-    //     Todo::factory()->create(['status' => 'completed']);
+    public function it_can_filter_todos_by_status()
+    {
+        Todo::factory()->create(['status' => 'in progress']);
+        Todo::factory()->create(['status' => 'completed']);
 
-    //     $response = $this->getJson('/api/v1/todos?status=pending');
+        $response = $this->getJson('/api/v1/todos?status=in progress');
 
-    //     $response->assertStatus(200)
-    //              ->assertJsonCount(1, 'data')
-    //              ->assertJsonFragment(['status' => 'pending']);
-    // }
+        $response->assertStatus(200)
+                 ->assertJsonCount(1, 'data')
+                 ->assertJsonFragment(['status' => 'in progress']);
+    }
 
     /** @test */
     public function it_can_search_todos_by_title()
@@ -49,19 +49,19 @@ class TodoControllerTest extends TestCase
     }
 
     /** @test */
-    // public function it_can_create_a_new_todo()
-    // {
-    //     $data = [
-    //         'title' => 'Test Todo',
-    //         'details' => 'Test details',
-    //         'status' => 'pending',
-    //     ];
+    public function it_can_create_a_new_todo()
+    {
+        $data = [
+            'title' => 'Test Todo',
+            'details' => 'Test details',
+            'status' => 'in progress',
+        ];
 
-    //     $response = $this->postJson('/api/v1/todos', $data);
+        $response = $this->postJson('/api/v1/todos', $data);
 
-    //     $response->assertStatus(201)
-    //              ->assertJsonFragment($data);
-    // }
+        $response->assertStatus(201)
+                 ->assertJsonFragment($data);
+    }
 
     /** @test */
     public function it_can_show_a_todo()

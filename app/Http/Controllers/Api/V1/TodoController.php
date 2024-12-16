@@ -36,11 +36,6 @@ class TodoController extends Controller
                 });
             }
 
-            // Sort
-            if ($request->has('sort_by')) {
-                $query->orderBy($request->sort_by, $request->sort_direction ?? 'asc');
-            }
-
             return TodoResource::collection($query->get());
         } catch (Throwable $e) {
             return response()->json([

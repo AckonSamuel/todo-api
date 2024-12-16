@@ -9,9 +9,9 @@
         }
     ],
     "info": {
-        "name": "Laravel",
-        "_postman_id": "657e43c4-33ff-4843-8d9e-e6f5031252e8",
-        "description": "",
+        "name": "The Todo API",
+        "_postman_id": "b8520a26-5c48-411c-9d7f-2cb79b528767",
+        "description": "The Todo API is a RESTful service for managing tasks, enabling users to create, read, update, and delete todos. It includes endpoints for filtering, sorting, and searching todos, as well as clear error responses for invalid requests or server issues.",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
     "item": [
@@ -28,7 +28,7 @@
                             "query": [
                                 {
                                     "key": "status",
-                                    "value": "pending",
+                                    "value": "completed",
                                     "description": "Filter by status.",
                                     "disabled": false
                                 },
@@ -37,21 +37,9 @@
                                     "value": "",
                                     "description": "Search by title or details.",
                                     "disabled": true
-                                },
-                                {
-                                    "key": "sort_by",
-                                    "value": "title",
-                                    "description": "Sort by field.",
-                                    "disabled": false
-                                },
-                                {
-                                    "key": "sort_direction",
-                                    "value": "asc",
-                                    "description": "Sort direction.",
-                                    "disabled": false
                                 }
                             ],
-                            "raw": "{{baseUrl}}\/api\/v1\/todos?status=pending&search=&sort_by=title&sort_direction=asc"
+                            "raw": "{{baseUrl}}\/api\/v1\/todos?status=completed&search="
                         },
                         "method": "GET",
                         "header": [
@@ -88,7 +76,26 @@
                             ],
                             "code": 200,
                             "body": "{\"data\":[{ \"id\": 13, \"title\": \"Officia maiores fugiat quasi eligendi at.\", \"details\": \"Tempore velit qui magnam corrupti officiis occaecati. Quae dignissimos dolorem adipisci ab hic. Qui est maxime aut ut voluptatem autem aut. Minus laboriosam rem ducimus vero vero provident odio.\", \"status\": \"completed\" }, { \"id\": 14, \"title\": \"Nostrum et ea et dolore et in rerum.\", \"details\": \"Dolor consequatur dolore hic dolorem aut veniam. Ex amet voluptatem ipsa deleniti ut occaecati tempora recusandae. Consectetur beatae corrupti voluptates vel.\", \"status\": \"in progress\" },]}",
-                            "name": ""
+                            "name": "A list of todos"
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 500,
+                            "body": "{ \"error\": \"Failed to fetch todos.\", \"message\": \"Error details\" }",
+                            "name": "Internal server error"
                         }
                     ]
                 },
@@ -114,7 +121,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"title\":\"Buy groceries\",\"details\":\"Milk, Bread, Butter\",\"status\":\"pending\"}"
+                            "raw": "{\"title\":\"Buy groceries\",\"details\":\"Milk, Bread, Butter\",\"status\":\"completed\"}"
                         },
                         "description": "",
                         "auth": {
@@ -139,7 +146,45 @@
                             ],
                             "code": 201,
                             "body": "{ \"data\": { \"id\":63, \"title\":\"gym\", \"details\":\"up down, up down\", \"status\":\"completed\" } }",
-                            "name": ""
+                            "name": "Todo successfully created"
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 400,
+                            "body": "{ \"error\": \"Unwanted parameters found: unexpectedField\" }",
+                            "name": "Bad request (validation error or unwanted parameters)"
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 500,
+                            "body": "{ \"error\": \"Failed to create todo.\", \"message\": \"Error details\" }",
+                            "name": "Internal server error"
                         }
                     ]
                 },
@@ -196,6 +241,44 @@
                             "code": 200,
                             "body": "{ \"data\": { \"id\":63, \"title\":\"gym\", \"details\":\"up down, up down\", \"status\":\"completed\" } }",
                             "name": ""
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 404,
+                            "body": "{ \"error\": \"Todo not found.\", \"message\": \"Model not found details\" }",
+                            "name": "Not found"
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 500,
+                            "body": "{ \"error\": \"Failed to update todo.\", \"message\": \"Error details\" }",
+                            "name": "Internal server error"
                         }
                     ]
                 },
@@ -255,6 +338,63 @@
                             "code": 200,
                             "body": "{ \"data\": { \"id\":63, \"title\":\"Updated title\", \"details\":\"Updated details\", \"status\":\"completed\" } }",
                             "name": ""
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 400,
+                            "body": "{ \"error\": \"Unwanted parameters found: unexpectedField\" }",
+                            "name": "Bad request (validation error or unwanted parameters)"
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 404,
+                            "body": "{ \"error\": \"Todo not found.\", \"message\": \"Model not found details\" }",
+                            "name": "Not found"
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 500,
+                            "body": "{ \"error\": \"Failed to update todo.\", \"message\": \"Error details\" }",
+                            "name": "Internal server error"
                         }
                     ]
                 },
@@ -292,7 +432,65 @@
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 204,
+                            "body": "{}",
+                            "name": "Todo successfully deleted"
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 404,
+                            "body": "{ \"error\": \"Todo not found.\", \"message\": \"Model not found details\" }",
+                            "name": "Not found"
+                        },
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 500,
+                            "body": "{ \"error\": \"Failed to delete the todo.\", \"message\": \"Error details\" }",
+                            "name": "Internal server error"
+                        }
+                    ]
                 }
             ]
         }

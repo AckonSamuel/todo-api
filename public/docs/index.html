@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Laravel Documentation</title>
+    <title>The Todo API</title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 
@@ -45,12 +45,12 @@
     </span>
 </a>
 <div class="tocify-wrapper">
-    
+
             <div class="lang-selector">
                                             <button type="button" class="lang-button" data-language-name="bash">bash</button>
                                             <button type="button" class="lang-button" data-language-name="javascript">javascript</button>
                     </div>
-    
+
     <div class="search">
         <input type="text" class="search" id="input-search" placeholder="Search">
     </div>
@@ -106,7 +106,7 @@
     <div class="content">
         <h1 id="introduction">Introduction</h1>
 <aside>
-    <strong>Base URL</strong>: <code>http://localhost</code>
+    <strong>Base URL</strong>: <code>https://pengion-todo-a4f1355a880e.herokuapp.com/</code>
 </aside>
 <p>This documentation aims to provide all the information you need to work with our API.</p>
 <aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
@@ -132,7 +132,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "https://pengion-todo-a4f1355a880e.herokuapp.com/api/v1/todos?status=pending&amp;sort_by=title&amp;sort_direction=asc" \
+    --get "https://pengion-todo-a4f1355a880e.herokuapp.com/api/v1/todos?status=completed" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
@@ -143,9 +143,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 );
 
 const params = {
-    "status": "pending",
-    "sort_by": "title",
-    "sort_direction": "asc",
+    "status": "completed",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -164,7 +162,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-todos">
             <blockquote>
-            <p>Example response (200):</p>
+            <p>Example response (200, A list of todos):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -176,6 +174,23 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{&quot;data&quot;:[{ &quot;id&quot;: 13, &quot;title&quot;: &quot;Officia maiores fugiat quasi eligendi at.&quot;, &quot;details&quot;: &quot;Tempore velit qui magnam corrupti officiis occaecati. Quae dignissimos dolorem adipisci ab hic. Qui est maxime aut ut voluptatem autem aut. Minus laboriosam rem ducimus vero vero provident odio.&quot;, &quot;status&quot;: &quot;completed&quot; }, { &quot;id&quot;: 14, &quot;title&quot;: &quot;Nostrum et ea et dolore et in rerum.&quot;, &quot;details&quot;: &quot;Dolor consequatur dolore hic dolorem aut veniam. Ex amet voluptatem ipsa deleniti ut occaecati tempora recusandae. Consectetur beatae corrupti voluptates vel.&quot;, &quot;status&quot;: &quot;in progress&quot; },]}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (500, Internal server error):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: &quot;Failed to fetch todos.&quot;,
+    &quot;message&quot;: &quot;Error details&quot;
+}</code>
  </pre>
     </span>
 <span id="execution-results-GETapi-v1-todos" hidden>
@@ -254,10 +269,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="status"                data-endpoint="GETapi-v1-todos"
-               value="pending"
+               value="completed"
                data-component="query">
     <br>
-<p>Filter by status. Example: <code>pending</code></p>
+<p>Filter by status. Example: <code>completed</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>search</code></b>&nbsp;&nbsp;
@@ -269,28 +284,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
                data-component="query">
     <br>
 <p>Search by title or details.</p>
-            </div>
-                                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>sort_by</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
-                <input type="text" style="display: none"
-                              name="sort_by"                data-endpoint="GETapi-v1-todos"
-               value="title"
-               data-component="query">
-    <br>
-<p>Sort by field. Example: <code>title</code></p>
-            </div>
-                                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>sort_direction</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
-                <input type="text" style="display: none"
-                              name="sort_direction"                data-endpoint="GETapi-v1-todos"
-               value="asc"
-               data-component="query">
-    <br>
-<p>Sort direction. Example: <code>asc</code></p>
             </div>
                 </form>
 
@@ -313,7 +306,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --data "{
     \"title\": \"Buy groceries\",
     \"details\": \"Milk, Bread, Butter\",
-    \"status\": \"pending\"
+    \"status\": \"completed\"
 }"
 </code></pre></div>
 
@@ -331,7 +324,7 @@ const headers = {
 let body = {
     "title": "Buy groceries",
     "details": "Milk, Bread, Butter",
-    "status": "pending"
+    "status": "completed"
 };
 
 fetch(url, {
@@ -344,7 +337,7 @@ fetch(url, {
 
 <span id="example-responses-POSTapi-v1-todos">
             <blockquote>
-            <p>Example response (201):</p>
+            <p>Example response (201, Todo successfully created):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -362,6 +355,39 @@ access-control-allow-origin: *
         &quot;details&quot;: &quot;up down, up down&quot;,
         &quot;status&quot;: &quot;completed&quot;
     }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (400, Bad request (validation error or unwanted parameters)):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: &quot;Unwanted parameters found: unexpectedField&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (500, Internal server error):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: &quot;Failed to create todo.&quot;,
+    &quot;message&quot;: &quot;Error details&quot;
 }</code>
  </pre>
     </span>
@@ -463,10 +489,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="status"                data-endpoint="POSTapi-v1-todos"
-               value="pending"
+               value="completed"
                data-component="body">
     <br>
-<p>The status of the todo. Example: <code>pending</code></p>
+<p>The status of the todo. Example: <code>completed</code></p>
         </div>
         </form>
 
@@ -525,6 +551,40 @@ access-control-allow-origin: *
         &quot;details&quot;: &quot;up down, up down&quot;,
         &quot;status&quot;: &quot;completed&quot;
     }
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, Not found):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: &quot;Todo not found.&quot;,
+    &quot;message&quot;: &quot;Model not found details&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (500, Internal server error):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: &quot;Failed to update todo.&quot;,
+    &quot;message&quot;: &quot;Error details&quot;
 }</code>
  </pre>
     </span>
@@ -681,6 +741,56 @@ access-control-allow-origin: *
     }
 }</code>
  </pre>
+            <blockquote>
+            <p>Example response (400, Bad request (validation error or unwanted parameters)):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: &quot;Unwanted parameters found: unexpectedField&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, Not found):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: &quot;Todo not found.&quot;,
+    &quot;message&quot;: &quot;Model not found details&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (500, Internal server error):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: &quot;Failed to update todo.&quot;,
+    &quot;message&quot;: &quot;Error details&quot;
+}</code>
+ </pre>
     </span>
 <span id="execution-results-PUTapi-v1-todos--id-" hidden>
     <blockquote>Received response<span
@@ -835,7 +945,54 @@ fetch(url, {
 </span>
 
 <span id="example-responses-DELETEapi-v1-todos--id-">
-</span>
+            <blockquote>
+            <p>Example response (204, Todo successfully deleted):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+<code>Empty response</code>
+ </pre>
+            <blockquote>
+            <p>Example response (404, Not found):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: &quot;Todo not found.&quot;,
+    &quot;message&quot;: &quot;Model not found details&quot;
+}</code>
+ </pre>
+            <blockquote>
+            <p>Example response (500, Internal server error):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;error&quot;: &quot;Failed to delete the todo.&quot;,
+    &quot;message&quot;: &quot;Error details&quot;
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-DELETEapi-v1-todos--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-DELETEapi-v1-todos--id-"></span>:
@@ -919,9 +1076,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                     </form>
 
-            
 
-        
+
+
     </div>
     <div class="dark-box">
                     <div class="lang-selector">

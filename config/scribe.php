@@ -4,14 +4,14 @@ use Knuckles\Scribe\Extracting\Strategies;
 
 return [
     // The HTML <title> for the generated documentation. If this is empty, Scribe will infer it from config('app.name').
-    'title' => null,
+    'title' => 'The Todo API',
 
     // A short description of your API. Will be included in the docs webpage, Postman collection and OpenAPI spec.
-    'description' => '',
+    'description' => 'The Todo API is a RESTful service for managing tasks, enabling users to create, read, update, and delete todos. It includes endpoints for filtering, sorting, and searching todos, as well as clear error responses for invalid requests or server issues.',
 
     // The base URL displayed in the docs. If this is empty, Scribe will use the value of config('app.url') at generation time.
     // If you're using `laravel` type, you can set this to a dynamic string, like '{{ config("app.tenant_url") }}' to get a dynamic base URL.
-    'base_url' => null,
+    'base_url' => 'https://pengion-todo-a4f1355a880e.herokuapp.com/',
 
     'routes' => [
         [

@@ -28,7 +28,7 @@ endpoints:
         name: status
         description: 'Filter by status.'
         required: false
-        example: pending
+        example: completed
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -44,30 +44,8 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         custom: []
-      sort_by:
-        name: sort_by
-        description: 'Sort by field.'
-        required: false
-        example: title
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
-      sort_direction:
-        name: sort_direction
-        description: 'Sort direction.'
-        required: false
-        example: asc
-        type: string
-        enumValues: []
-        exampleWasSpecified: true
-        nullable: false
-        custom: []
     cleanQueryParameters:
-      status: pending
-      sort_by: title
-      sort_direction: asc
+      status: completed
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
@@ -90,7 +68,19 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
-        description: null
+        description: 'A list of todos'
+        custom: []
+      -
+        status: 500
+        content: '{
+              "error": "Failed to fetch todos.",
+              "message": "Error details"
+          }'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: 'Internal server error'
         custom: []
     responseFields: []
     auth: []
@@ -145,7 +135,8 @@ endpoints:
         name: status
         description: 'The status of the todo.'
         required: true
-        example: pending
+        example: completed
+
         type: string
         enumValues: []
         exampleWasSpecified: true
@@ -154,7 +145,7 @@ endpoints:
     cleanBodyParameters:
       title: 'Buy groceries'
       details: 'Milk, Bread, Butter'
-      status: pending
+      status: completed
     fileParameters: []
     responses:
       -
@@ -172,7 +163,30 @@ endpoints:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
-        description: null
+        description: 'Todo successfully created'
+        custom: []
+      -
+        status: 400
+        content: '{
+              "error": "Unwanted parameters found: unexpectedField"
+          }'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: 'Bad request (validation error or unwanted parameters)'
+        custom: []
+      -
+        status: 500
+        content: '{
+              "error": "Failed to create todo.",
+              "message": "Error details"
+          }'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: 'Internal server error'
         custom: []
     responseFields: []
     auth: []
@@ -233,6 +247,30 @@ endpoints:
           content-type: application/json
           access-control-allow-origin: '*'
         description: null
+        custom: []
+      -
+        status: 404
+        content: '{
+              "error": "Todo not found.",
+              "message": "Model not found details"
+          }'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: 'Not found'
+        custom: []
+      -
+        status: 500
+        content: '{
+              "error": "Failed to update todo.",
+              "message": "Error details"
+          }'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: 'Internal server error'
         custom: []
     responseFields: []
     auth: []
@@ -310,23 +348,58 @@ endpoints:
       status: completed
     fileParameters: []
     responses:
-          -
-            status: 200
-            content: '{
-            "data":
-              {
-                "id":63,
-                "title":"Updated title",
-                "details":"Updated details",
-                "status":"completed"
-              }
-            }'
-            headers:
-              cache-control: 'no-cache, private'
-              content-type: application/json
-              access-control-allow-origin: '*'
-            description: null
-            custom: []
+      -
+        status: 200
+        content: '{
+        "data":
+          {
+            "id":63,
+            "title":"Updated title",
+            "details":"Updated details",
+            "status":"completed"
+          }
+        }'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+      -
+        status: 400
+        content: '{
+              "error": "Unwanted parameters found: unexpectedField"
+          }'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: 'Bad request (validation error or unwanted parameters)'
+        custom: []
+      -
+        status: 404
+        content: '{
+              "error": "Todo not found.",
+              "message": "Model not found details"
+          }'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: 'Not found'
+        custom: []
+      -
+        status: 500
+        content: '{
+              "error": "Failed to update todo.",
+              "message": "Error details"
+          }'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: 'Internal server error'
+        custom: []
     responseFields: []
     auth: []
     controller: null
@@ -369,7 +442,40 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses: []
+    responses:
+      -
+        status: 204
+        content: '{}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: 'Todo successfully deleted'
+        custom: []
+      -
+        status: 404
+        content: '{
+              "error": "Todo not found.",
+              "message": "Model not found details"
+          }'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: 'Not found'
+        custom: []
+      -
+        status: 500
+        content: '{
+              "error": "Failed to delete the todo.",
+              "message": "Error details"
+          }'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: 'Internal server error'
+        custom: []
     responseFields: []
     auth: []
     controller: null
