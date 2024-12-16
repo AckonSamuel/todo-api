@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "The Todo API",
-        "_postman_id": "b8520a26-5c48-411c-9d7f-2cb79b528767",
+        "_postman_id": "6c01fd54-b6db-491a-b802-549cd468fddd",
         "description": "The Todo API is a RESTful service for managing tasks, enabling users to create, read, update, and delete todos. It includes endpoints for filtering, sorting, and searching todos, as well as clear error responses for invalid requests or server issues.",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -20,7 +20,7 @@
             "description": "\nAPIs for managing todos",
             "item": [
                 {
-                    "name": "Display a listing of the resource.",
+                    "name": "Display a listing of the todo items.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -189,7 +189,7 @@
                     ]
                 },
                 {
-                    "name": "Display the specified resource.",
+                    "name": "Display the specified todo item.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
