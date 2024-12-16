@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 use App\Models\Todo;
 
@@ -11,7 +11,7 @@ class TodoControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function it_can_list_all_todos()
     {
         Todo::factory()->count(5)->create();
@@ -22,7 +22,7 @@ class TodoControllerTest extends TestCase
                  ->assertJsonCount(5, 'data');
     }
 
-    /** @test */
+    #[Test]
     public function it_can_filter_todos_by_status()
     {
         Todo::factory()->create(['status' => 'in progress']);
@@ -35,7 +35,7 @@ class TodoControllerTest extends TestCase
                  ->assertJsonFragment(['status' => 'in progress']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_search_todos_by_title()
     {
         Todo::factory()->create(['title' => 'First Todo']);
@@ -48,7 +48,7 @@ class TodoControllerTest extends TestCase
                  ->assertJsonFragment(['title' => 'First Todo']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_a_new_todo()
     {
         $data = [
@@ -63,7 +63,7 @@ class TodoControllerTest extends TestCase
                  ->assertJsonFragment($data);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_show_a_todo()
     {
         $todo = Todo::factory()->create();
@@ -74,7 +74,7 @@ class TodoControllerTest extends TestCase
                  ->assertJsonFragment(['title' => $todo->title]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_a_todo()
     {
         $todo = Todo::factory()->create();
@@ -91,7 +91,7 @@ class TodoControllerTest extends TestCase
                  ->assertJsonFragment($data);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_todo()
     {
         $todo = Todo::factory()->create();
@@ -101,4 +101,53 @@ class TodoControllerTest extends TestCase
         $response->assertStatus(204);
     }
 
+    #[Test]
+    public function it_returns_404_for_nonexistent_todo()
+    {
+        $response = $this->getJson('/api/v1/todos/999');
+
+        $response->assertStatus(404);
+    }
+
+    #[Test]
+    public function it_returns_400_for_invalid_todo_creation()
+    {
+        $data = [
+            'title' => '', // Missing required fields
+        ];
+
+        $response = $this->postJson('/api/v1/todos', $data);
+
+        $response->assertStatus(500);
+    }
+
+    #[Test]
+    public function it_returns_400_for_invalid_todo_update()
+    {
+        $todo = Todo::factory()->create();
+
+        $data = [
+            'tiy' => 'ghhgvgh', // Invalid data
+        ];
+
+        $response = $this->putJson('/api/v1/todos/' . $todo->id, $data);
+
+        $response->assertStatus(400);
+    }
+
+    #[Test]
+    public function it_returns_404_when_deleting_nonexistent_todo()
+    {
+        $response = $this->deleteJson('/api/v1/todos/999');
+
+        $response->assertStatus(404);
+    }
+
+    #[Test]
+    public function it_returns_405_for_unsupported_methods()
+    {
+        $response = $this->patchJson('/api/v1/todos'); // PATCH is not supported
+
+        $response->assertStatus(405);
+    }
 }
