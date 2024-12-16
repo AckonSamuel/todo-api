@@ -14,7 +14,7 @@ endpoints:
         APIs for managing todos
       subgroup: ''
       subgroupDescription: ''
-      title: 'Display a listing of the resource.'
+      title: 'Display a listing of the todo items.'
       description: ''
       authenticated: false
       custom: []
@@ -205,7 +205,7 @@ endpoints:
         APIs for managing todos
       subgroup: ''
       subgroupDescription: ''
-      title: 'Display the specified resource.'
+      title: 'Display the specified todo item.'
       description: ''
       authenticated: false
       custom: []
