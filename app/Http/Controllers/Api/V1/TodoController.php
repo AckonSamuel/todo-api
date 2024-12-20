@@ -36,6 +36,8 @@ class TodoController extends Controller
                 });
             }
 
+            $query->orderBy('updated_at', 'desc');
+
             return TodoResource::collection($query->get());
         } catch (Throwable $e) {
             return response()->json([
